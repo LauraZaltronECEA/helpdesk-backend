@@ -1,0 +1,15 @@
+C:\Users\blauury\Desktop\helpdesk2\api.services\obj\Debug\net8.0\api.services.csproj.AssemblyReference.cache
+C:\Users\blauury\Desktop\helpdesk2\api.services\obj\Debug\net8.0\api.services.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\blauury\Desktop\helpdesk2\api.services\obj\Debug\net8.0\api.services.AssemblyInfoInputs.cache
+C:\Users\blauury\Desktop\helpdesk2\api.services\obj\Debug\net8.0\api.services.AssemblyInfo.cs
+C:\Users\blauury\Desktop\helpdesk2\api.services\obj\Debug\net8.0\api.services.csproj.CoreCompileInputs.cache
+C:\Users\blauury\Desktop\helpdesk2\api.services\bin\Debug\net8.0\api.services.deps.json
+C:\Users\blauury\Desktop\helpdesk2\api.services\bin\Debug\net8.0\api.services.dll
+C:\Users\blauury\Desktop\helpdesk2\api.services\bin\Debug\net8.0\api.services.pdb
+C:\Users\blauury\Desktop\helpdesk2\api.services\bin\Debug\net8.0\api.models.dll
+C:\Users\blauury\Desktop\helpdesk2\api.services\bin\Debug\net8.0\api.models.pdb
+C:\Users\blauury\Desktop\helpdesk2\api.services\obj\Debug\net8.0\api.serv.D1BD4914.Up2Date
+C:\Users\blauury\Desktop\helpdesk2\api.services\obj\Debug\net8.0\api.services.dll
+C:\Users\blauury\Desktop\helpdesk2\api.services\obj\Debug\net8.0\refint\api.services.dll
+C:\Users\blauury\Desktop\helpdesk2\api.services\obj\Debug\net8.0\api.services.pdb
+C:\Users\blauury\Desktop\helpdesk2\api.services\obj\Debug\net8.0\ref\api.services.dll

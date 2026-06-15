@@ -1,0 +1,78 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\blauury\\Desktop\\helpdesk2\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{52D97E03-5327-FDA0-8C05-13284CB30983}|api.services\\api.services.csproj|c:\\users\\blauury\\desktop\\helpdesk2\\api.services\\v1\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52D97E03-5327-FDA0-8C05-13284CB30983}|api.services\\api.services.csproj|solutionrelative:api.services\\v1\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{822F884F-5956-4F58-3700-C9AFBC1C6D26}|api.helpdesk\\api.helpdesk.csproj|c:\\users\\blauury\\desktop\\helpdesk2\\api.helpdesk\\controllers\\v1\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{822F884F-5956-4F58-3700-C9AFBC1C6D26}|api.helpdesk\\api.helpdesk.csproj|solutionrelative:api.helpdesk\\controllers\\v1\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "C:\\Users\\blauury\\Desktop\\helpdesk2\\api.services\\v1\\AuthService.cs",
+              "RelativeDocumentMoniker": "api.services\\v1\\AuthService.cs",
+              "ToolTip": "C:\\Users\\blauury\\Desktop\\helpdesk2\\api.services\\v1\\AuthService.cs",
+              "RelativeToolTip": "api.services\\v1\\AuthService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFAAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-12T23:14:58.202Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\blauury\\Desktop\\helpdesk2\\api.helpdesk\\Controllers\\v1\\AuthController.cs",
+              "RelativeDocumentMoniker": "api.helpdesk\\Controllers\\v1\\AuthController.cs",
+              "ToolTip": "C:\\Users\\blauury\\Desktop\\helpdesk2\\api.helpdesk\\Controllers\\v1\\AuthController.cs",
+              "RelativeToolTip": "api.helpdesk\\Controllers\\v1\\AuthController.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAYwBwAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-12T23:13:02.831Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

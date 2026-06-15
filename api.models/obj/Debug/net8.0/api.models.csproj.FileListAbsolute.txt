@@ -1,0 +1,12 @@
+C:\Users\blauury\Desktop\helpdesk2\api.models\bin\Debug\net8.0\api.models.deps.json
+C:\Users\blauury\Desktop\helpdesk2\api.models\bin\Debug\net8.0\api.models.dll
+C:\Users\blauury\Desktop\helpdesk2\api.models\bin\Debug\net8.0\api.models.pdb
+C:\Users\blauury\Desktop\helpdesk2\api.models\obj\Debug\net8.0\api.models.csproj.AssemblyReference.cache
+C:\Users\blauury\Desktop\helpdesk2\api.models\obj\Debug\net8.0\api.models.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\blauury\Desktop\helpdesk2\api.models\obj\Debug\net8.0\api.models.AssemblyInfoInputs.cache
+C:\Users\blauury\Desktop\helpdesk2\api.models\obj\Debug\net8.0\api.models.AssemblyInfo.cs
+C:\Users\blauury\Desktop\helpdesk2\api.models\obj\Debug\net8.0\api.models.csproj.CoreCompileInputs.cache
+C:\Users\blauury\Desktop\helpdesk2\api.models\obj\Debug\net8.0\api.models.dll
+C:\Users\blauury\Desktop\helpdesk2\api.models\obj\Debug\net8.0\refint\api.models.dll
+C:\Users\blauury\Desktop\helpdesk2\api.models\obj\Debug\net8.0\api.models.pdb
+C:\Users\blauury\Desktop\helpdesk2\api.models\obj\Debug\net8.0\ref\api.models.dll
