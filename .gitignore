@@ -1,1 +1,18 @@
 .env
+
+# IDE
+.vs/
+.idea/
+*.user
+*.suo
+
+# Build artifacts
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+
+# OS files
+Thumbs.db
+.DS_Store

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "sk14+S9hM4o=",
+  "dgSpecHash": "4YBv/cqUTu8=",
   "success": true,
-  "projectFilePath": "C:\\Users\\blauury\\Desktop\\helpdesk2\\api.services\\api.services.csproj",
+  "projectFilePath": "C:\\Users\\blauury\\source\\repos\\helpdesk-backend\\api.services\\api.services.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\blauury\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\blauury\\.nuget\\packages\\bouncycastle.cryptography\\2.4.0\\bouncycastle.cryptography.2.4.0.nupkg.sha512",
@@ -42,18 +42,18 @@
     "C:\\Users\\blauury\\.nuget\\packages\\system.identitymodel.tokens.jwt\\7.2.0\\system.identitymodel.tokens.jwt.7.2.0.nupkg.sha512",
     "C:\\Users\\blauury\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512",
     "C:\\Users\\blauury\\.nuget\\packages\\system.security.cryptography.pkcs\\8.0.0\\system.security.cryptography.pkcs.8.0.0.nupkg.sha512",
-    "C:\\Users\\blauury\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.26\\microsoft.windowsdesktop.app.ref.8.0.26.nupkg.sha512",
     "C:\\Users\\blauury\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.26\\microsoft.netcore.app.ref.8.0.26.nupkg.sha512",
+    "C:\\Users\\blauury\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.26\\microsoft.windowsdesktop.app.ref.8.0.26.nupkg.sha512",
     "C:\\Users\\blauury\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.26\\microsoft.aspnetcore.app.ref.8.0.26.nupkg.sha512"
   ],
   "logs": [
     {
       "code": "NU1902",
       "level": "Warning",
-      "message": "El paquete \"MailKit\" 4.8.0 tiene una vulnerabilidad de gravedad moderada conocida, https://github.com/advisories/GHSA-9j88-vvj5-vhgr",
-      "projectPath": "C:\\Users\\blauury\\Desktop\\helpdesk2\\api.services\\api.services.csproj",
+      "message": "Package 'MailKit' 4.8.0 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-9j88-vvj5-vhgr",
+      "projectPath": "C:\\Users\\blauury\\source\\repos\\helpdesk-backend\\api.services\\api.services.csproj",
       "warningLevel": 1,
-      "filePath": "C:\\Users\\blauury\\Desktop\\helpdesk2\\api.services\\api.services.csproj",
+      "filePath": "C:\\Users\\blauury\\source\\repos\\helpdesk-backend\\api.services\\api.services.csproj",
       "libraryId": "MailKit",
       "targetGraphs": [
         "net8.0"

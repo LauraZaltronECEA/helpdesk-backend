@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace api.services.Handlers;
 
+// Creates JWT bearer tokens using settings from the "Jwt" configuration section.
 public class JwtHandler
 {
     private readonly IConfiguration _configuration;
@@ -16,6 +17,8 @@ public class JwtHandler
         _configuration = configuration;
     }
 
+    // Creates and returns a signed JWT string with user identity and role claims.
+    // Claims include: Sub (user ID), NameIdentifier, Name, GivenName, and Role.
     public string GenerateToken(User user, string roleName)
     {
         var jwt = _configuration.GetSection("Jwt");

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\blauury\\Desktop\\helpdesk2\\api.models\\api.models.csproj": {}
+    "C:\\Users\\blauury\\source\\repos\\helpdesk-backend\\api.models\\api.models.csproj": {}
   },
   "projects": {
-    "C:\\Users\\blauury\\Desktop\\helpdesk2\\api.models\\api.models.csproj": {
+    "C:\\Users\\blauury\\source\\repos\\helpdesk-backend\\api.models\\api.models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\blauury\\Desktop\\helpdesk2\\api.models\\api.models.csproj",
+        "projectUniqueName": "C:\\Users\\blauury\\source\\repos\\helpdesk-backend\\api.models\\api.models.csproj",
         "projectName": "api.models",
-        "projectPath": "C:\\Users\\blauury\\Desktop\\helpdesk2\\api.models\\api.models.csproj",
+        "projectPath": "C:\\Users\\blauury\\source\\repos\\helpdesk-backend\\api.models\\api.models.csproj",
         "packagesPath": "C:\\Users\\blauury\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\blauury\\Desktop\\helpdesk2\\api.models\\obj\\",
+        "outputPath": "C:\\Users\\blauury\\source\\repos\\helpdesk-backend\\api.models\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\otro vs\\NuGetPackages"
@@ -30,7 +30,6 @@
         },
         "frameworks": {
           "net8.0": {
-            "framework": "net8.0",
             "targetAlias": "net8.0",
             "projectReferences": {}
           }
@@ -49,7 +48,6 @@
       },
       "frameworks": {
         "net8.0": {
-          "framework": "net8.0",
           "targetAlias": "net8.0",
           "dependencies": {
             "Microsoft.Extensions.Identity.Stores": {

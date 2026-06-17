@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
     
 namespace api.services.v1;
 
+// Handles user authentication, registration, email confirmation, and password reset.
+// Uses BCrypt for password hashing and the custom Role/UserRole permission system.
 public class AuthService : IAuthRepository
 {
     private readonly AppDbContext _db;
@@ -23,6 +25,9 @@ public class AuthService : IAuthRepository
         _emailHandler = emailHandler;
     }
 
+    // Validates the user's credentials and returns a JWT on success.
+    // Checks: user exists, password matches (BCrypt), email is confirmed, account is active.
+    // The role name is resolved from the UserRoles relationship, falling back to the stored Role FK.
     public async Task<LoginResponse> Login(LoginDTO dto)
     {
         var response = new LoginResponse();
@@ -32,6 +37,7 @@ public class AuthService : IAuthRepository
             .ThenInclude(ur => ur.Role)
             .FirstOrDefaultAsync(u => u.Username == dto.Username);
 
+        // User not found
         if (user == null)
         {
             response.Estado = false;
@@ -40,6 +46,7 @@ public class AuthService : IAuthRepository
             return response;
         }
 
+        // Wrong password
         if (!BCrypt.Net.BCrypt.Verify(dto.Password, user.Password))
         {
             response.Estado = false;
@@ -48,6 +55,7 @@ public class AuthService : IAuthRepository
             return response;
         }
 
+        // Email not confirmed yet
         if (user.EmailConfirmed == 0)
         {
             response.Estado = false;
@@ -56,6 +64,7 @@ public class AuthService : IAuthRepository
             return response;
         }
 
+        // Account is inactive
         if (user.Active == 0)
         {
             response.Estado = false;
@@ -64,21 +73,20 @@ public class AuthService : IAuthRepository
             return response;
         }
 
+        // Update last login timestamp
         user.Last_Login = DateTime.UtcNow;
         await _db.SaveChangesAsync();
 
-        //var roleName = user.UserRoles.FirstOrDefault()?.Role?.Role_Name ?? "viewer";
-        
-        // Asignar nombre de rol: intentar obtenerlo desde la relación UserRoles cargada
+        // Resolve role name: try from UserRoles relationship first, then fall back to the Role FK
         var roleName = user.UserRoles?.FirstOrDefault()?.Role?.Role_Name;
 
-        // Si no se obtuvo desde UserRoles, buscar por el Id almacenado en user.Role
         if (string.IsNullOrEmpty(roleName))
         {
             var role = await _db.Roles.FirstOrDefaultAsync(r => r.Id == user.Role);
             roleName = role?.Role_Name ?? "viewer";
         }
-    
+
+        // Generate JWT
         var jwt = new JwtHandler(_configuration);
         var token = jwt.GenerateToken(user, roleName);
 
@@ -96,10 +104,14 @@ public class AuthService : IAuthRepository
         return response;
     }
 
+    // Creates a new user account, assigns the default "viewer" role,
+    // generates an email confirmation token, and sends the confirmation link via SMTP.
+    // If the email fails to send, the created user is rolled back.
     public async Task<GeneralResponse> Register(RegisterDTO dto, string baseUrl)
     {
         var response = new GeneralResponse();
 
+        // Check for duplicate username
         var existingUser = await _db.Users.FirstOrDefaultAsync(u => u.Username == dto.Username);
         if (existingUser != null)
         {
@@ -109,6 +121,7 @@ public class AuthService : IAuthRepository
             return response;
         }
 
+        // Check for duplicate email
         var existingEmail = await _db.Users.FirstOrDefaultAsync(u => u.Email == dto.Email);
         if (existingEmail != null)
         {
@@ -118,6 +131,7 @@ public class AuthService : IAuthRepository
             return response;
         }
 
+        // Find the default "viewer" role
         var defaultRole = await _db.Roles.FirstOrDefaultAsync(r => r.Role_Name == "viewer");
         if (defaultRole == null)
         {
@@ -127,6 +141,7 @@ public class AuthService : IAuthRepository
             return response;
         }
 
+        // Create the user
         var user = new User
         {
             Username = dto.Username,
@@ -144,6 +159,7 @@ public class AuthService : IAuthRepository
         _db.Users.Add(user);
         await _db.SaveChangesAsync();
 
+        // Assign the default role
         var userRole = new UserRole
         {
             Id_User = user.Id,
@@ -152,6 +168,7 @@ public class AuthService : IAuthRepository
         _db.UserRoles.Add(userRole);
         await _db.SaveChangesAsync();
 
+        // Build and send the confirmation email
         var confirmationLink = $"{baseUrl}/api/v1/auth/confirm-email?userId={user.Id}&token={user.EmailConfirmationToken}";
 
         try
@@ -160,6 +177,7 @@ public class AuthService : IAuthRepository
         }
         catch (Exception)
         {
+            // Roll back user creation on email failure
             _db.Users.Remove(user);
             await _db.SaveChangesAsync();
 
@@ -176,6 +194,8 @@ public class AuthService : IAuthRepository
         return response;
     }
 
+    // Confirms a user's email address by matching the stored confirmation token.
+    // Marks EmailConfirmed = 1 and clears the token.
     public async Task<GeneralResponse> ConfirmEmail(int userId, string token)
     {
         var response = new GeneralResponse();
@@ -189,6 +209,7 @@ public class AuthService : IAuthRepository
             return response;
         }
 
+        // Already confirmed
         if (user.EmailConfirmed == 1)
         {
             response.Estado = false;
@@ -197,6 +218,7 @@ public class AuthService : IAuthRepository
             return response;
         }
 
+        // Token mismatch
         if (user.EmailConfirmationToken != token)
         {
             response.Estado = false;
@@ -216,6 +238,8 @@ public class AuthService : IAuthRepository
         return response;
     }
 
+    // Sends a password reset email if the email belongs to a confirmed account.
+    // Generates a reset token with a 1-hour expiry.
     public async Task<GeneralResponse> ForgotPassword(ForgotPasswordDTO dto, string baseUrl)
     {
         var response = new GeneralResponse();
@@ -223,6 +247,7 @@ public class AuthService : IAuthRepository
         var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == dto.Email);
         if (user == null)
         {
+            // Don't reveal whether the email exists (security best practice)
             response.Estado = false;
             response.Codigo = 0;
             response.Mensaje = "Si el correo existe, recibiras un enlace para restablecer tu contrasena";
@@ -237,6 +262,7 @@ public class AuthService : IAuthRepository
             return response;
         }
 
+        // Generate reset token
         user.PasswordResetToken = Guid.NewGuid().ToString("N");
         user.PasswordResetTokenExpires = DateTime.UtcNow.AddHours(1);
         await _db.SaveChangesAsync();
@@ -263,6 +289,8 @@ public class AuthService : IAuthRepository
         return response;
     }
 
+    // Resets the user's password using the token from the email.
+    // Validates the token and checks expiry before updating the password.
     public async Task<GeneralResponse> ResetPassword(ResetPasswordDTO dto)
     {
         var response = new GeneralResponse();
@@ -276,6 +304,7 @@ public class AuthService : IAuthRepository
             return response;
         }
 
+        // Token mismatch
         if (user.PasswordResetToken != dto.Token)
         {
             response.Estado = false;
@@ -284,14 +313,16 @@ public class AuthService : IAuthRepository
             return response;
         }
 
+        // Token expired
         if (user.PasswordResetTokenExpires == null || user.PasswordResetTokenExpires < DateTime.UtcNow)
         {
             response.Estado = false;
             response.Codigo = 0;
-            response.Mensaje = "El enlace de restablecimiento ha expirado";
+            response.Mensaje = "El enlace de restablecimiento ha expirado. Solicita uno nuevo.";
             return response;
         }
 
+        // Update password and clear the reset token
         user.Password = BCrypt.Net.BCrypt.HashPassword(dto.NewPassword);
         user.PasswordResetToken = null;
         user.PasswordResetTokenExpires = null;
@@ -299,7 +330,7 @@ public class AuthService : IAuthRepository
 
         response.Estado = true;
         response.Codigo = 1;
-        response.Mensaje = "Contrasena restablecida exitosamente. Ya puedes iniciar sesion.";
+        response.Mensaje = "Contrasena restablecida exitosamente. Ya puedes iniciar sesion con tu nueva contrasena.";
 
         return response;
     }

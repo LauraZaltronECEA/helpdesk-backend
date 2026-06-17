@@ -565,11 +565,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\blauury\\Desktop\\helpdesk2\\api.models\\api.models.csproj",
+      "projectUniqueName": "C:\\Users\\blauury\\source\\repos\\helpdesk-backend\\api.models\\api.models.csproj",
       "projectName": "api.models",
-      "projectPath": "C:\\Users\\blauury\\Desktop\\helpdesk2\\api.models\\api.models.csproj",
+      "projectPath": "C:\\Users\\blauury\\source\\repos\\helpdesk-backend\\api.models\\api.models.csproj",
       "packagesPath": "C:\\Users\\blauury\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\blauury\\Desktop\\helpdesk2\\api.models\\obj\\",
+      "outputPath": "C:\\Users\\blauury\\source\\repos\\helpdesk-backend\\api.models\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\otro vs\\NuGetPackages"

@@ -6972,11 +6972,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\blauury\\Desktop\\helpdesk2\\api.helpdesk\\api.helpdesk.csproj",
+      "projectUniqueName": "C:\\Users\\blauury\\source\\repos\\helpdesk-backend\\api.helpdesk\\api.helpdesk.csproj",
       "projectName": "api.helpdesk",
-      "projectPath": "C:\\Users\\blauury\\Desktop\\helpdesk2\\api.helpdesk\\api.helpdesk.csproj",
+      "projectPath": "C:\\Users\\blauury\\source\\repos\\helpdesk-backend\\api.helpdesk\\api.helpdesk.csproj",
       "packagesPath": "C:\\Users\\blauury\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\blauury\\Desktop\\helpdesk2\\api.helpdesk\\obj\\",
+      "outputPath": "C:\\Users\\blauury\\source\\repos\\helpdesk-backend\\api.helpdesk\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\otro vs\\NuGetPackages"
@@ -6997,11 +6997,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\blauury\\Desktop\\helpdesk2\\api.models\\api.models.csproj": {
-              "projectPath": "C:\\Users\\blauury\\Desktop\\helpdesk2\\api.models\\api.models.csproj"
+            "C:\\Users\\blauury\\source\\repos\\helpdesk-backend\\api.models\\api.models.csproj": {
+              "projectPath": "C:\\Users\\blauury\\source\\repos\\helpdesk-backend\\api.models\\api.models.csproj"
             },
-            "C:\\Users\\blauury\\Desktop\\helpdesk2\\api.services\\api.services.csproj": {
-              "projectPath": "C:\\Users\\blauury\\Desktop\\helpdesk2\\api.services\\api.services.csproj"
+            "C:\\Users\\blauury\\source\\repos\\helpdesk-backend\\api.services\\api.services.csproj": {
+              "projectPath": "C:\\Users\\blauury\\source\\repos\\helpdesk-backend\\api.services\\api.services.csproj"
             }
           }
         }

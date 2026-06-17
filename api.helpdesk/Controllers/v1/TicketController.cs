@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace api.helpdesk.Controllers.v1;
 
+// CRUD endpoints for tickets. All endpoints require a valid JWT.
+// Access is scoped by role ("admin") and granular permissions (e.g. READ_TICKET, CREATE_TICKET).
 [ApiController]
 [Route("api/v1/[controller]")]
 [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -21,10 +23,11 @@ public class TicketController : ControllerBase
         _ticketRepo = ticketRepo;
     }
 
-    //private string CurrentRole => User.FindFirstValue(ClaimTypes.Role) ?? "viewer";
+    // Reads the Role claim from the JWT. Defaults to "viewer" if no role claim is present.
+    private string CurrentRole => User.FindFirstValue(ClaimTypes.Role) ?? "viewer";
 
-    //Get current _userRole not setting viewer as default
-
+    // Attempts to extract the user's integer ID from multiple JWT claim types
+    // (NameIdentifier, nameid, sub). Returns true if a valid ID is found.
     private bool TryGetCurrentUserId(out int currentUserId)
     {
         currentUserId = 0;
@@ -43,6 +46,7 @@ public class TicketController : ControllerBase
         return false;
     }
 
+    // GET /api/v1/ticket — Returns all accessible tickets (list view, no user details).
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Ticket>>> GetAll()
     {
@@ -53,6 +57,7 @@ public class TicketController : ControllerBase
         return Ok(tickets);
     }
 
+    // GET /api/v1/ticket/inbox — Returns tickets in the user's inbox, with user names.
     [HttpGet("inbox")]
     public async Task<ActionResult<IEnumerable<TicketInboxResponse>>> GetInbox()
     {
@@ -63,6 +68,7 @@ public class TicketController : ControllerBase
         return Ok(tickets);
     }
 
+    // GET /api/v1/ticket/{id} — Returns a single ticket by ID (no user details).
     [HttpGet("{id:int}")]
     public async Task<ActionResult<Ticket>> GetById(int id)
     {
@@ -74,6 +80,7 @@ public class TicketController : ControllerBase
         return Ok(ticket);
     }
 
+    // GET /api/v1/ticket/{id}/detail — Returns a single ticket with full user/contact info.
     [HttpGet("{id:int}/detail")]
     public async Task<ActionResult<TicketDetailResponse>> GetDetail(int id)
     {
@@ -85,6 +92,7 @@ public class TicketController : ControllerBase
         return Ok(ticket);
     }
 
+    // POST /api/v1/ticket — Creates a new ticket for the authenticated user.
     [HttpPost]
     public async Task<ActionResult<TicketCreateResponse>> Create([FromBody] TicketCreateDTO? dto)
     {
@@ -100,6 +108,7 @@ public class TicketController : ControllerBase
             : result.Codigo == 403 ? Forbid() : BadRequest(result);
     }
 
+    // PUT /api/v1/ticket/{id} — Updates an existing ticket (partial update).
     [HttpPut("{id:int}")]
     public async Task<ActionResult<GeneralResponse>> Update(int id, [FromBody] TicketUpdateDTO? dto)
     {
@@ -115,6 +124,7 @@ public class TicketController : ControllerBase
         return Ok(result);
     }
 
+    // DELETE /api/v1/ticket/{id} — Soft-deletes a ticket (sets IsDeleted = 1).
     [HttpDelete("{id:int}")]
     public async Task<ActionResult<GeneralResponse>> SoftDelete(int id)
     {
@@ -127,6 +137,7 @@ public class TicketController : ControllerBase
         return Ok(result);
     }
 
+    // DELETE /api/v1/ticket/{id}/hard — Permanently removes a ticket. Admin-only via [Authorize(Roles = "admin")].
     [HttpDelete("{id:int}/hard")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "admin")]
     public async Task<ActionResult<GeneralResponse>> HardDelete(int id)

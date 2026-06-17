@@ -243,6 +243,35 @@
         }
       }
     },
+    "/api/v1/Dashboard": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/Ticket": {
       "get": {
         "tags": [
@@ -599,6 +628,59 @@
           },
           "function": {
             "$ref": "#/components/schemas/TicketFunction"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DashboardResponse": {
+        "type": "object",
+        "properties": {
+          "totalTickets": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "openTickets": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "inProgressTickets": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "resolvedTickets": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "closedTickets": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "lowPriority": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "mediumPriority": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "highPriority": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ticketsCreatedByMe": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ticketsAssignedToMe": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "recentTickets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TicketInboxResponse"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false

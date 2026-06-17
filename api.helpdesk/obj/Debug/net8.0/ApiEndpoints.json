@@ -135,6 +135,26 @@
     ]
   },
   {
+    "ContainingType": "api.helpdesk.Controllers.v1.DashboardController",
+    "Method": "Get",
+    "RelativePath": "api/v1/Dashboard",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "api.models.Responses.DashboardResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "api.helpdesk.Controllers.v1.TicketController",
     "Method": "GetAll",
     "RelativePath": "api/v1/Ticket",

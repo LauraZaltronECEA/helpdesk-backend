@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace api.services.v1;
 
+// Implements ticket CRUD with role-based and permission-based access control.
+// Uses the custom HasFunction() helper to check granular permissions via the
+// Role -> AccessToFuncPerRole -> TicketFunction relationship.
 public class TicketService : ITicketRepository
 {
     private readonly AppDbContext _db;
@@ -17,6 +20,8 @@ public class TicketService : ITicketRepository
         _db = db;
     }
 
+    // Returns all non-deleted tickets. Users with READ_TICKET permission or admin role
+    // see all tickets; others see only tickets they created.
     public async Task<IEnumerable<Ticket>> GetAll(int currentUserId, string role)
     {
         var canReadAll = await HasFunction(currentUserId, "READ_TICKET");
@@ -31,6 +36,8 @@ public class TicketService : ITicketRepository
         return await query.OrderByDescending(t => t.CreatedAt).ToListAsync();
     }
 
+    // Returns tickets for the user's inbox view, with creator/assignee names.
+    // Admin: all tickets. Agent (READ_TICKET): assigned tickets. Viewer: own tickets.
     public async Task<IEnumerable<TicketInboxResponse>> GetInbox(int currentUserId, string role)
     {
         var canReadAll = await HasFunction(currentUserId, "READ_TICKET");
@@ -39,16 +46,16 @@ public class TicketService : ITicketRepository
 
         if (string.Equals(role, "admin", StringComparison.OrdinalIgnoreCase))
         {
-            // admin sees all
+            // admin sees all tickets
         }
         else if (canReadAll)
         {
-            // agent sees assigned tickets
+            // agents see tickets assigned to them
             query = query.Where(t => t.AssignedToId == currentUserId);
         }
         else
         {
-            // viewer sees own tickets
+            // viewers see only their own tickets
             query = query.Where(t => t.CreatedById == currentUserId);
         }
 
@@ -75,6 +82,8 @@ public class TicketService : ITicketRepository
             }).ToListAsync();
     }
 
+    // Gets a single ticket by ID. Accessible to admins, users with READ_TICKET,
+    // or the ticket's creator. Returns null otherwise.
     public async Task<Ticket?> GetById(int id, int currentUserId, string role)
     {
         var canReadAll = await HasFunction(currentUserId, "READ_TICKET");
@@ -90,6 +99,8 @@ public class TicketService : ITicketRepository
         return null;
     }
 
+    // Gets a single ticket with full detail. Accessible to admins, users with READ_TICKET,
+    // the creator, or the assigned user. Returns null otherwise.
     public async Task<TicketDetailResponse?> GetDetail(int id, int currentUserId, string role)
     {
         var canReadAll = await HasFunction(currentUserId, "READ_TICKET");
@@ -136,6 +147,8 @@ public class TicketService : ITicketRepository
         };
     }
 
+    // Creates a new ticket. Requires the CREATE_TICKET permission.
+    // Validates required fields and normalizes priority to lowercase.
     public async Task<TicketCreateResponse> Create(TicketCreateDTO dto, int createdById)
     {
         if (string.IsNullOrWhiteSpace(dto.Title))
@@ -143,10 +156,12 @@ public class TicketService : ITicketRepository
         if (string.IsNullOrWhiteSpace(dto.Description))
             return new TicketCreateResponse { Estado = false, Codigo = 400, Mensaje = "Description is required" };
 
+        // Permission check
         var canCreate = await HasFunction(createdById, "CREATE_TICKET");
         if (!canCreate)
             return new TicketCreateResponse { Estado = false, Codigo = 403, Mensaje = "No tienes permiso para crear tickets" };
 
+        // Validate priority format
         var normalizedPriority = dto.Priority?.Trim().ToLowerInvariant();
         if (!string.IsNullOrEmpty(normalizedPriority) && !Regex.IsMatch(normalizedPriority, "^(low|medium|high)$"))
         {
@@ -180,16 +195,21 @@ public class TicketService : ITicketRepository
         }
     }
 
+    // Updates an existing ticket. Requires UPDATE_TICKET permission or admin role.
+    // The user must also be the creator or the assigned user (unless admin).
+    // Only provided fields are applied; null fields keep their current values.
     public async Task<GeneralResponse> Update(int id, TicketUpdateDTO dto, int currentUserId, string role)
     {
         var ticket = await _db.Tickets.FirstOrDefaultAsync(t => t.Id == id && t.IsDeleted == 0);
         if (ticket == null)
             return new GeneralResponse { Estado = false, Codigo = 404, Mensaje = "Not found" };
 
+        // Permission check
         var canUpdate = await HasFunction(currentUserId, "UPDATE_TICKET");
         if (!canUpdate && !string.Equals(role, "admin", StringComparison.OrdinalIgnoreCase))
             return new GeneralResponse { Estado = false, Codigo = 403, Mensaje = "Forbidden" };
 
+        // Non-admins must be the creator or assigned user
         if (!string.Equals(role, "admin", StringComparison.OrdinalIgnoreCase)
             && ticket.CreatedById != currentUserId
             && ticket.AssignedToId != currentUserId)
@@ -220,16 +240,20 @@ public class TicketService : ITicketRepository
         }
     }
 
+    // Soft-deletes a ticket by setting IsDeleted = 1.
+    // Requires SDELETE_TICKET permission or admin role. Non-admins must be the creator.
     public async Task<GeneralResponse> SoftDelete(int id, int currentUserId, string role)
     {
         var ticket = await _db.Tickets.FirstOrDefaultAsync(t => t.Id == id && t.IsDeleted == 0);
         if (ticket == null)
             return new GeneralResponse { Estado = false, Codigo = 404, Mensaje = "Not found" };
 
+        // Permission check
         var canSoftDelete = await HasFunction(currentUserId, "SDELETE_TICKET");
         if (!canSoftDelete && !string.Equals(role, "admin", StringComparison.OrdinalIgnoreCase))
             return new GeneralResponse { Estado = false, Codigo = 403, Mensaje = "Forbidden" };
 
+        // Non-admins must be the creator
         if (!string.Equals(role, "admin", StringComparison.OrdinalIgnoreCase)
             && ticket.CreatedById != currentUserId)
         {
@@ -255,6 +279,8 @@ public class TicketService : ITicketRepository
         }
     }
 
+    // Permanently removes a ticket from the database.
+    // Requires the DELETE_TICKET permission (admin-only by default).
     public async Task<GeneralResponse> HardDelete(int id, int currentUserId, string role)
     {
         var canHardDelete = await HasFunction(currentUserId, "DELETE_TICKET");
@@ -283,6 +309,8 @@ public class TicketService : ITicketRepository
         }
     }
 
+    // Checks whether a user has a specific function permission by traversing the
+    // UserRole -> AccessToFuncPerRole -> TicketFunction relationship chain.
     private async Task<bool> HasFunction(int userId, string functionName)
     {
         return await (

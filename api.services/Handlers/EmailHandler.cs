@@ -1,22 +1,36 @@
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using MimeKit;
 
 namespace api.services.Handlers;
 
+// SMTP server settings loaded from appsettings.json.
 public class SmtpSettings
 {
+    // SMTP server hostname or IP.
     public string Host { get; set; } = string.Empty;
+
+    // SMTP server port (default 587 for STARTTLS).
     public int Port { get; set; } = 587;
+
+    // Whether to use SSL immediately on connect.
     public bool UseSsl { get; set; }
+
+    // SMTP authentication username (empty = no auth).
     public string Username { get; set; } = string.Empty;
+
+    // SMTP authentication password.
     public string Password { get; set; } = string.Empty;
+
+    // "From" email address displayed to recipients.
     public string FromAddress { get; set; } = string.Empty;
+
+    // "From" display name shown in the recipient's inbox.
     public string FromName { get; set; } = string.Empty;
 }
 
+// Sends transactional emails (confirmation, password reset) via SMTP using MailKit.
 public class EmailHandler
 {
     private readonly SmtpSettings _settings;
@@ -27,6 +41,7 @@ public class EmailHandler
             ?? throw new InvalidOperationException("SMTP configuration section 'Smtp' is missing.");
     }
 
+    // Sends an HTML email with a confirmation link after user registration.
     public async Task SendConfirmationEmailAsync(string toEmail, string toName, string confirmationLink)
     {
         var body = $"""
@@ -42,6 +57,7 @@ public class EmailHandler
         await SendEmailAsync(toEmail, "Confirma tu correo electronico", body);
     }
 
+    // Sends an HTML email with a password reset link.
     public async Task SendPasswordResetEmailAsync(string toEmail, string toName, string resetLink)
     {
         var body = $"""
@@ -58,6 +74,7 @@ public class EmailHandler
         await SendEmailAsync(toEmail, "Restablece tu contrasena", body);
     }
 
+    // Core method that builds and sends a MIME email via the configured SMTP server.
     private async Task SendEmailAsync(string toEmail, string subject, string htmlMessage)
     {
         var message = new MimeMessage();

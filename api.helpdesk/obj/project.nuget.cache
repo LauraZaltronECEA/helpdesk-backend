@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "na5w8B7lBDo=",
+  "dgSpecHash": "vCXq3auW0qc=",
   "success": true,
-  "projectFilePath": "C:\\Users\\blauury\\Desktop\\helpdesk2\\api.helpdesk\\api.helpdesk.csproj",
+  "projectFilePath": "C:\\Users\\blauury\\source\\repos\\helpdesk-backend\\api.helpdesk\\api.helpdesk.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\blauury\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\blauury\\.nuget\\packages\\bouncycastle.cryptography\\2.4.0\\bouncycastle.cryptography.2.4.0.nupkg.sha512",
@@ -127,8 +127,8 @@
     "C:\\Users\\blauury\\.nuget\\packages\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
     "C:\\Users\\blauury\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\blauury\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\blauury\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.26\\microsoft.windowsdesktop.app.ref.8.0.26.nupkg.sha512",
     "C:\\Users\\blauury\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.26\\microsoft.netcore.app.ref.8.0.26.nupkg.sha512",
+    "C:\\Users\\blauury\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.26\\microsoft.windowsdesktop.app.ref.8.0.26.nupkg.sha512",
     "C:\\Users\\blauury\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.26\\microsoft.aspnetcore.app.ref.8.0.26.nupkg.sha512",
     "C:\\Users\\blauury\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\8.0.26\\microsoft.netcore.app.host.win-x64.8.0.26.nupkg.sha512"
   ],

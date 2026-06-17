@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace api.helpdesk.Controllers.v1;
 
+// Public endpoints for user authentication and registration.
+// No authorization required — registration, login, and password reset must be open.
 [ApiController]
 [Route("api/v1/[controller]")]
 public class AuthController : ControllerBase
@@ -16,6 +18,7 @@ public class AuthController : ControllerBase
         _authRepository = authRepository;
     }
 
+    // POST /api/v1/auth/login — Authenticates a user and returns a JWT.
     [HttpPost("login")]
     public async Task<ActionResult<LoginResponse>> Login([FromBody] LoginDTO dto)
     {
@@ -29,6 +32,7 @@ public class AuthController : ControllerBase
         return Ok(result);
     }
 
+    // POST /api/v1/auth/register — Creates a new account and sends a confirmation email.
     [HttpPost("register")]
     public async Task<ActionResult<GeneralResponse>> Register([FromBody] RegisterDTO dto)
     {
@@ -44,6 +48,7 @@ public class AuthController : ControllerBase
         return Ok(result);
     }
 
+    // GET /api/v1/auth/confirm-email — Confirms the user's email via the token from the email link.
     [HttpGet("confirm-email")]
     public async Task<ActionResult<GeneralResponse>> ConfirmEmail([FromQuery] int userId, [FromQuery] string token)
     {
@@ -58,6 +63,7 @@ public class AuthController : ControllerBase
         return Ok(result);
     }
 
+    // POST /api/v1/auth/forgot-password — Sends a password reset email if the email is found.
     [HttpPost("forgot-password")]
     public async Task<ActionResult<GeneralResponse>> ForgotPassword([FromBody] ForgotPasswordDTO dto)
     {
@@ -70,6 +76,7 @@ public class AuthController : ControllerBase
         return Ok(result);
     }
 
+    // POST /api/v1/auth/reset-password — Resets the password using the token from the email.
     [HttpPost("reset-password")]
     public async Task<ActionResult<GeneralResponse>> ResetPassword([FromBody] ResetPasswordDTO dto)
     {
