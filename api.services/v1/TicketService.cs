@@ -218,7 +218,7 @@ public class TicketService : ITicketRepository
         }
 
         if (dto.Title != null) ticket.Title = dto.Title.Trim();
-        if (dto.Description != null) ticket.Description = dto.Description.Trim();
+        //if (dto.Description != null) ticket.Description = dto.Description.Trim();
         if (dto.Status != null) ticket.Status = dto.Status.Trim().ToLowerInvariant();
         if (dto.Priority != null) ticket.Priority = dto.Priority.Trim().ToLowerInvariant();
         if (dto.AssignedToId.HasValue) ticket.AssignedToId = dto.AssignedToId;

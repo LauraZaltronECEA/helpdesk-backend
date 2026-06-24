@@ -9,9 +9,9 @@ public class TicketUpdateDTO
     [StringLength(200)]
     public string? Title { get; set; }
 
-    // Updated description (max 4000 chars).
-    [StringLength(4000)]
-    public string? Description { get; set; }
+    //// Updated description (max 4000 chars).
+    //[StringLength(4000)]
+    //public string? Description { get; set; }
 
     // Updated status: "open", "in_progress", "resolved", or "closed".
     [StringLength(50)]
